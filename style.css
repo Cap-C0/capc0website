@@ -13,3 +13,13 @@ h1,h2,h3 {
   line-height: 1.2
 }
 
+ul.horizontal {
+  list-style-type: none;
+  padding:0 10px;
+  margin: 20;
+}
+ul.horizontal li{
+  float: left;
+  padding: 0 10px;
+  font-size: 24px;
+}
