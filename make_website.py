@@ -22,6 +22,7 @@ with open("template_jp.html", encoding ="utf-8") as f:
 
 MD_SCRIPT_PATH = Path(os.getenv("MD_SCRIPT_PATH")).expanduser()
 SITE_URL = os.getenv("SITE_URL")
+CHROME_PATH = os.getenv("CHROME_PATH")
 
 def main():
     index_path = OUTPUT_DIR / "index.html"
@@ -45,7 +46,7 @@ def create_jp_index():
         return
     jp_index_html = subprocess.run([str(MD_SCRIPT_PATH), "-f", "./index_jp.md"], capture_output=True, text=True).stdout.strip()
     jp_index_html = JP_TEMPLATE.replace(CONTENT_STRING, jp_index_html)
-    jp_index_html = jp_index_html.replace(PAGE_TITLE_STRING, "Simon's Site")
+    jp_index_html = jp_index_html.replace(PAGE_TITLE_STRING, "サイモンのサイト")
     with open(jp_index_path, "w", encoding = "utf-8") as f:
         f.write(jp_index_html)
     print("JP INDEX WRITTEN!")
@@ -145,7 +146,7 @@ def create_resume():
     with open(resume_html_path, "w", encoding = "utf-8") as f:
         f.write(resume_html)
     subprocess.run(
-        ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        [CHROME_PATH,
         "--headless",
         "--disable-gpu",
         f"--print-to-pdf=website_build/resume.pdf",
