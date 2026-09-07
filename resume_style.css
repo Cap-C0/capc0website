@@ -1,17 +1,11 @@
 body {
   margin: 40px auto;
   max-width: 650px;
-  line-height: 1.6;
-  font-size: 18px;
+  line-height: 1.2;
+  font-size: 14px;
   color: #444;
   padding: 0 10px;
-  background: #EEEEEE;
   font-family: 'Courier New'
-}
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
 }
 
 h1,h2,h3 {
@@ -28,15 +22,3 @@ ul.horizontal li{
   padding: 0 10px;
   font-size: 24px;
 }
-
-.post-list li h3 {
-  margin: 0;
-}
-.post-list li p {
-  margin: 0;
-  line-height: 1.2;
-}
-.post-list li {
-  margin-bottom: 1.5em;  /* keeps space *between* posts */
-}
-
