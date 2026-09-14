@@ -11,7 +11,7 @@ I don't publically post anywhere besides my blog. Check it out for things I wish
 ## About
 I live in the San Francisco Bay Area and I like to code. I graduated from RIT with a bachelor's of science in computer science
 and Japanese in 2026. For more about me, check out my resume.
-- Resume: [html](/Resume.html) [PDF](/Resume.pdf)
+- Resume: [html](/resume.html) [PDF](/resume.pdf)
 
 ### Some things that I like:
 

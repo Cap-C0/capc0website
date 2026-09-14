@@ -12,7 +12,7 @@
 今サンフランシスコのベイエリアに住みコーディングが好きです。２０２６年でRITをコンピューターサイエンスと日本語の理学士で卒業しました。
 もっと詳しくは履歴書にある。
 
-- 履歴書: [html](Resume_jp.html) [Pdf](Resume_jp.pdf)
+- 履歴書: [html](../resume_jp.html) [Pdf](../resume_jp.pdf)
 
 ### 好きなこと：
 

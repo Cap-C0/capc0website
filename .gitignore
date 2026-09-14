@@ -1,2 +1,4 @@
 /website_build
 .env
+/dist
+.wrangler

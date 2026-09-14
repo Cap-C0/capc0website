@@ -1,6 +1,6 @@
 ## Simon Martin
 
-Phone: 415-747-5758 | Email: <simon@capc0.com> | Website: <https://www.capc0.com>
+Email: <simon@capc0.com> | Website: <https://www.capc0.com> | Github: <https://github.com/cap-C0>
 
 > I'm having a lot of fun right now programming things on my own that I find cool. If I sent this 
 to you it means that I think what you are doing is even more cool.
@@ -10,7 +10,7 @@ to you it means that I think what you are doing is even more cool.
 ### Education
 
 - **Rochester Institute of Technology** (2021-2026)\
-  *Bachelor of Science in Computer Science and Japanese Language; Magna Cum Laude*
+  *Bachelor of Science in Computer Science and Japanese Language; 3.7 GPA*
   > **Advanced Courses:** Programming Language Theory, Advanced Programming Skills in Rust, Compiler Construction, Abstract Algebra
 
 ***
@@ -19,17 +19,16 @@ to you it means that I think what you are doing is even more cool.
 
 - **Programming Languages:** Rust, Python, Java, C++
 - **Foreign Languages:** Japanese: JLPT N2
-- **Software:** Unix, Vim, Git version control
+- **Software:** Linux (systems administration), bash, Git version control
 
 ***
 
 ### Projects
 - **Markdown Parser | Rust** (Summer 2026)
   + I created a CommonMark compliant Markdown to html converter using just the standard library.
-  + Entirely handwritten code. No tutorial followed.
+  + Passes 100% of spec tests
   + I then used it to make this resume.
 - **Ray Tracer | C++** (Summer 2026)
-  + I followed the "Ray Tracing in One Weekend" series of books.
   + Further optimized light scattering with Monte Carlo algorithms and PDFs.
 
 ***

@@ -5,13 +5,19 @@ import shutil
 import tomllib
 import xml.etree.ElementTree as ET
 import os
+import argparse
 from dotenv import load_dotenv
 
 load_dotenv()
 
+
+parser = argparse.ArgumentParser(description="Build da website")
+parser.add_argument("-r", "--release", action="store_true", help="To go to https site")
+args = parser.parse_args()
+
+
 CONTENT_STRING = "<!--CONTENT_HERE-->"
 PAGE_TITLE_STRING = "<!--PAGE_TITLE_HERE-->"
-OUTPUT_DIR = Path("./website_build")
 TEMPLATE = ""
 with open("template.html", encoding ="utf-8") as f:
     TEMPLATE = f.read()
@@ -22,6 +28,11 @@ with open("template_jp.html", encoding ="utf-8") as f:
 
 MD_SCRIPT_PATH = Path(os.getenv("MD_SCRIPT_PATH")).expanduser()
 SITE_URL = os.getenv("SITE_URL")
+if args.release:
+    SITE_URL = "https://www.capc0.com"
+OUTPUT_DIR = Path("./website_build")
+if args.release:
+    OUTPUT_DIR = Path("./dist")
 CHROME_PATH = os.getenv("CHROME_PATH")
 
 def main():
@@ -38,6 +49,7 @@ def main():
     create_jp_index()
     create_blog_posts_and_rss_feed()
     create_resume()
+    create_resume_jp()
 
 def create_jp_index():
     jp_index_path = OUTPUT_DIR / "jp" / "index.html"
@@ -89,7 +101,7 @@ def create_blog_posts_and_rss_feed():
     print("Writing blog home page")
 
 
-    blog_titles_and_dates.sort(key= lambda x: x.get("date"))
+    blog_titles_and_dates.sort(key= lambda x: x.get("date"), reverse=True)
     
     rss_root = ET.Element("rss", version="2.0")
     rss_channel = ET.SubElement(rss_root, "channel")
@@ -113,7 +125,7 @@ def create_blog_posts_and_rss_feed():
         post_title =ET.SubElement(rss_item, "title")
         post_title.text = btad["title"]
         post_link =ET.SubElement(rss_item, "link")
-        post_title.text = SITE_URL + "/blog/" + btad["folder"]
+        post_link.text = SITE_URL + "/blog/" + btad["folder"]
         post_date =ET.SubElement(rss_item, "pubDate")
         post_date.text = btad["date"].isoformat()
 
@@ -149,9 +161,32 @@ def create_resume():
         [CHROME_PATH,
         "--headless",
         "--disable-gpu",
-        f"--print-to-pdf=website_build/resume.pdf",
+        f"--print-to-pdf={OUTPUT_DIR}/resume.pdf",
         "--no-pdf-header-footer",
-         f"website_build/resume.html"
+         f"{OUTPUT_DIR}/resume.html"
+         ]
+    )
+
+def create_resume_jp():
+    resume_html_path = OUTPUT_DIR / "resume_jp.html"
+    if not source_changed(Path("./resume_jp.md"), resume_html_path) and not source_changed(Path("./resume_style.css"), resume_html_path) and not source_changed(Path("./resume_template_jp.html"), resume_html_path):
+        return
+    print("writing jp resume stuff.")
+    resume_template_jp = ""
+    with open("resume_template_jp.html", encoding ="utf-8") as f:
+        resume_template_jp = f.read()
+    resume_html =  subprocess.run([str(MD_SCRIPT_PATH), "-f", "./resume_jp.md"], capture_output=True, text=True).stdout.strip()
+    resume_html = resume_template_jp.replace(CONTENT_STRING, resume_html)
+    shutil.copy("./resume_style.css", OUTPUT_DIR)
+    with open(resume_html_path, "w", encoding = "utf-8") as f:
+        f.write(resume_html)
+    subprocess.run(
+        [CHROME_PATH,
+        "--headless",
+        "--disable-gpu",
+        f"--print-to-pdf={OUTPUT_DIR}/resume_jp.pdf",
+        "--no-pdf-header-footer",
+         f"{OUTPUT_DIR}/resume_jp.html"
          ]
     )
 
