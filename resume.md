@@ -1,6 +1,6 @@
 ## Simon Martin
 
-Email: <simon@capc0.com> | Website: <https://www.capc0.com> | Github: <https://github.com/cap-C0>
+Email: <simon@capc0.com> | Website: [capc0.com](<https://capc0.com>) | Github: [github.com/cap-c0](<https://github.com/cap-C0>)
 
 > I'm having a lot of fun right now programming things on my own that I find cool. If I sent this 
 to you it means that I think what you are doing is even more cool.
@@ -29,7 +29,7 @@ to you it means that I think what you are doing is even more cool.
   + Passes 100% of spec tests
   + I then used it to make this resume.
 - **Ray Tracer | C++** (Summer 2026)
-  + Further optimized light scattering with Monte Carlo algorithms and PDFs.
+  + Further optimized light scattering with Monte Carlo algorithms and PDFs for ~100x render speedup.
 
 ***
 

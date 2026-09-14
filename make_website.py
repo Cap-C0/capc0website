@@ -13,6 +13,7 @@ load_dotenv()
 
 parser = argparse.ArgumentParser(description="Build da website")
 parser.add_argument("-r", "--release", action="store_true", help="To go to https site")
+parser.add_argument("-u", "--resume", type=str,default="", help="just render a resume pdf to output file")
 args = parser.parse_args()
 
 
@@ -36,6 +37,9 @@ if args.release:
 CHROME_PATH = os.getenv("CHROME_PATH")
 
 def main():
+    if len(args.resume) > 0: 
+        create_resume(Path("./resume.md"), Path("."), args.resume)
+        return
     index_path = OUTPUT_DIR / "index.html"
     index_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy("./style.css", OUTPUT_DIR)
@@ -48,8 +52,8 @@ def main():
         print("INDEX WRITTEN!")
     create_jp_index()
     create_blog_posts_and_rss_feed()
-    create_resume()
-    create_resume_jp()
+    create_resume("./resume.md", OUTPUT_DIR, "resume")
+    create_resume("./resume_jp.md", OUTPUT_DIR/ "jp", "resume_jp")
 
 def create_jp_index():
     jp_index_path = OUTPUT_DIR / "jp" / "index.html"
@@ -144,49 +148,26 @@ def create_blog_posts_and_rss_feed():
     with open(rss_path, "wb") as f:
         f.write(ET.tostring(rss_root))
 
-def create_resume():
-    resume_html_path = OUTPUT_DIR / "resume.html"
-    if not source_changed(Path("./resume.md"), resume_html_path) and not source_changed(Path("./resume_style.css"), resume_html_path) and not source_changed(Path("./resume_template.html"), resume_html_path):
+def create_resume(input_md_path: Path, output_dir: Path, output_name: str):
+    resume_html_path = output_dir / (output_name + ".html")
+    if not source_changed(Path(input_md_path), resume_html_path) and not source_changed(Path("./resume_style.css"), resume_html_path) and not source_changed(Path("./resume_template.html"), resume_html_path):
         return
-    print("writing resume stuff.")
+    print(f"writing resume stuff from {input_md_path} to {output_dir} / {output_name}.")
     resume_template = ""
     with open("resume_template.html", encoding ="utf-8") as f:
         resume_template = f.read()
-    resume_html =  subprocess.run([str(MD_SCRIPT_PATH), "-f", "./resume.md"], capture_output=True, text=True).stdout.strip()
+    resume_html =  subprocess.run([str(MD_SCRIPT_PATH), "-f", input_md_path], capture_output=True, text=True).stdout.strip()
     resume_html = resume_template.replace(CONTENT_STRING, resume_html)
-    shutil.copy("./resume_style.css", OUTPUT_DIR)
+    shutil.copy("./resume_style.css", output_dir)
     with open(resume_html_path, "w", encoding = "utf-8") as f:
         f.write(resume_html)
     subprocess.run(
         [CHROME_PATH,
         "--headless",
         "--disable-gpu",
-        f"--print-to-pdf={OUTPUT_DIR}/resume.pdf",
+        f"--print-to-pdf={output_dir}/{output_name}.pdf",
         "--no-pdf-header-footer",
-         f"{OUTPUT_DIR}/resume.html"
-         ]
-    )
-
-def create_resume_jp():
-    resume_html_path = OUTPUT_DIR / "resume_jp.html"
-    if not source_changed(Path("./resume_jp.md"), resume_html_path) and not source_changed(Path("./resume_style.css"), resume_html_path) and not source_changed(Path("./resume_template_jp.html"), resume_html_path):
-        return
-    print("writing jp resume stuff.")
-    resume_template_jp = ""
-    with open("resume_template_jp.html", encoding ="utf-8") as f:
-        resume_template_jp = f.read()
-    resume_html =  subprocess.run([str(MD_SCRIPT_PATH), "-f", "./resume_jp.md"], capture_output=True, text=True).stdout.strip()
-    resume_html = resume_template_jp.replace(CONTENT_STRING, resume_html)
-    shutil.copy("./resume_style.css", OUTPUT_DIR)
-    with open(resume_html_path, "w", encoding = "utf-8") as f:
-        f.write(resume_html)
-    subprocess.run(
-        [CHROME_PATH,
-        "--headless",
-        "--disable-gpu",
-        f"--print-to-pdf={OUTPUT_DIR}/resume_jp.pdf",
-        "--no-pdf-header-footer",
-         f"{OUTPUT_DIR}/resume_jp.html"
+         f"{output_dir}/resume.html"
          ]
     )
 
