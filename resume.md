@@ -1,6 +1,6 @@
 ## Simon Martin
 
-Email: <simon@capc0.com> | Website: [capc0.com](<https://capc0.com>) | Github: [github.com/cap-c0](<https://github.com/cap-C0>)
+Email: <simon@capc0.com> | Website: [capc0.com](<https://capc0.com>) | Github: [github.com/cap-C0](<https://github.com/cap-C0>)
 
 > I'm having a lot of fun right now programming things on my own that I find cool. If I sent this 
 to you it means that I think what you are doing is even more cool.
@@ -19,17 +19,19 @@ to you it means that I think what you are doing is even more cool.
 
 - **Programming Languages:** Rust, Python, Java, C++
 - **Foreign Languages:** Japanese: JLPT N2
-- **Software:** Linux (systems administration), bash, Git version control
+- **Software:** Linux, Bash, Git version control
 
 ***
 
 ### Projects
 - **Markdown Parser | Rust** (Summer 2026)
   + I created a CommonMark compliant Markdown to html converter using just the standard library.
-  + Passes 100% of spec tests
+  + Passes all 652 spec tests
   + I then used it to make this resume.
 - **Ray Tracer | C++** (Summer 2026)
-  + Further optimized light scattering with Monte Carlo algorithms and PDFs for ~100x render speedup.
+  + Further optimized light scattering with Monte Carlo algorithms and PDFs for ~10x render speedup.
+- **Reed-Solomon Error Correcting | C** (Summer 2026)
+  + Implemented finite field arithmetic from scratch.
 
 ***
 
