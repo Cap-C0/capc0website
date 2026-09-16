@@ -26,6 +26,7 @@ Part of this is game theoretic, students (and also teachers and schools) are inc
 
 I guess I'm just wish-casting a world where students would explore math with more curiosity and willingness to be wrong, but this is a losing strategy in the adversarial system we have against our peers.
 
+I imagine these thoughts are common among math teachers.
+
 **TLDR: you sort of need both examples and theory to teach well.**
-The 
 
