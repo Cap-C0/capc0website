@@ -12,8 +12,10 @@ python3 make_website.py -r
 
 then
 ```
-wrangler deploy
+./deploy.sh
 ```
+
+(deploys to production if you're on `main`; otherwise uploads a preview version and prints a random-hash workers.dev URL, leaving production untouched)
 
 ```
 ```

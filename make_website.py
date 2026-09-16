@@ -43,7 +43,7 @@ def main():
     index_path = OUTPUT_DIR / "index.html"
     index_path.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy("./style.css", OUTPUT_DIR)
-    if source_changed(Path("./index.md"), index_path):
+    if source_changed(Path("./index.md"), index_path) or source_changed(Path("./template.html"), index_path):
         index_html = subprocess.run([str(MD_SCRIPT_PATH), "-f", "./index.md"], capture_output=True, text=True).stdout.strip()
         index_html = TEMPLATE.replace(CONTENT_STRING, index_html)
         index_html = index_html.replace(PAGE_TITLE_STRING, "Simon's Site")
@@ -84,7 +84,7 @@ def create_blog_posts_and_rss_feed():
             
             output_dir = OUTPUT_DIR / "blog" / folder.name
             post_html_path = output_dir / "index.html"
-            if not source_changed(folder / "post_info.toml", post_html_path) and not source_changed(folder / "blog_content.md", post_html_path):
+            if not source_changed(folder / "post_info.toml", post_html_path) and not source_changed(folder / "blog_content.md", post_html_path) and not source_changed(Path("./template.html"), post_html_path):
                 continue
             blog_changed = True
             print("writing to: " + str(folder))
